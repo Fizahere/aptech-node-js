@@ -85,3 +85,21 @@ export const deleteUserData = async (req, res) => {
         res.status(500).json({ message: "internal server error." })
     }
 }
+
+export const searchUser = async (req, res) => {
+    try {
+        const searchedValue = req.params.value;
+        const result = await User.find({
+            "$or": [
+                { "name": { $regex: searchedValue } },
+                { "email": { $regex: searchedValue } },
+            ]
+        });
+        if (!searchedValue) {
+            res.status(404).json({ message: "not found." })
+        }
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(505).json({ message: "internal server error." })
+    }
+}
