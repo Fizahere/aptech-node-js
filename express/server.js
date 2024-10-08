@@ -7,7 +7,7 @@ const port = 2000;
 connectDb();
 
 app.use(express.json());
-app.use('/api',router);
+app.use('/test-api',router);
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
