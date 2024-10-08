@@ -1,0 +1,29 @@
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+tailwind.config.js      # Optional: ignore if you want to keep it in version control
+postcss.config.js       # Optional: ignore if you want to keep it in version control
+*.css                   # Optional: if you use a build step and want to ignore output CSS files
+
+
+build                   # Ignore any build directory if you're generating static files
