@@ -14,7 +14,7 @@ const CustomForm = () => {
     setName(value);
 
     if (!nameRegex.test(value)) {
-      setMessage('')
+      setMessage("");
       setError("name can only contain letters.");
     } else {
       setError("");
@@ -39,17 +39,20 @@ const CustomForm = () => {
     e.preventDefault();
 
     if (error || !name) {
-      setMessage('')
+      setMessage("");
       setError("name is not valid.");
       return;
     }
 
     if (!image) {
-      setMessage('')
+      setMessage("");
       setError("upload image first.");
       return;
     }
     setMessage("form submitted.");
+    setTimeout(() => {
+      setMessage("");
+    },2000);
     setName("");
     setError("");
     setImagePreview("");
@@ -61,6 +64,7 @@ const CustomForm = () => {
       <form
         className="w-full max-w-lg bg-white p-8 shadow-md rounded"
         onSubmit={handleSubmit}
+        encType="multipart/formdata"
       >
         <div className="mb-6">
           <label
