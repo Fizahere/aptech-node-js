@@ -116,7 +116,7 @@ const CustomForm = () => {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-pink-400 hover:bg-pink-500 text-white font-bold w-full py-2 rounded focus:outline-none focus:shadow-outline"
+            className="bg-pink-500 hover:bg-pink-400 text-white font-bold w-full py-2 rounded focus:outline-none focus:shadow-outline"
           >
             Submit
           </button>

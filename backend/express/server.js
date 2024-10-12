@@ -8,6 +8,8 @@ connectDb();
 
 app.use(express.json());
 app.use('/test-api',router);
+// app.use(express.urlencoded({ extended: true }));
+
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
