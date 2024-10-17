@@ -1,46 +1,45 @@
-import multer from 'multer'
+import multer from 'multer';
+import Gallery from '../models/galleryModel.js';
 
 const storage = multer.diskStorage({
-    destination: '../files/',
-    filename: (req, file, cb) => {
-        cb(null, file.originalname)
+    destination: (req, file, cb) => {
+        cb(null, '../files/'); 
     },
-})
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); 
+    },
+});
 
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 },
-    fileFilter: (req, file, cb) => {
-        const filetypes = /jpeg|jpg|png|gif/;
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = filetypes.test(file.mimetype);
+    storage,
+    limits: { fileSize: 10000000 }, 
+}).single('file'); 
 
-        if (mimetype && extname) {
-            return cb(null, true);
-        } else {
-            cb('Error: Images only!');
-        }
-    }
-}).single('image');
-export const uploadImage = async (req, res) => {
-    try {
+// export const getFiles=async (req,res)=>{
+//     try {
+//         const results=await Ga
+//     } catch (error) {
+//         res.status(500).json({message:'internal server error.'})
+//     }
+// }
 
-    } catch (error) {
-        res.status(500).json({ message: 'internal server error.' })
-    }
-}
 
 export const uploadFile = async (req, res) => {
-    upload(req, res, (err) => {
-        if (err) {
-            res.send(err);
-        } else {
-            if (req.file === undefined) {
-                res.send('Error: No File Selected!');
-            } else {
-                res.send(`File Uploaded: ${req.file.filename}`);
+    try {
+        upload(req, res, (err) => {
+            if (err) {
+                return res.status(400).json({ message: err.message });
             }
-        }
-    });
-}
-
+            if (!req.file) {
+                return res.status(400).json({ message: 'Error: No File Selected!' });
+            }
+            const newFile=new Gallery({
+            image:req.file.path
+            })
+            newFile.save();
+            res.status(200).json({ message: `File Uploaded: ${req.file.filename}` });
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+};
